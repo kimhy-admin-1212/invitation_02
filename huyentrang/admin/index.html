@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý RSVP</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      .hidden {
+        display: none;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .media-wrapper {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .media-wrapper img {
+        width: 300px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      #rsvpChart {
+        max-width: 400px;
+        max-height: 300px;
+        width: 100%;
+        height: auto;
+        margin: 0 auto; /* căn giữa */
+        display: block;
+      }
+    </style>
+
+    <style>
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+      }
+
+      .popup-content {
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        position: relative;
+        width: 90%;
+        max-width: 800px;
+        height: 90%;
+      }
+
+      .popup iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 6px;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>👥 Danh sách</h2>
+    <div style="text-align: right; margin-top: 10px">
+      <button onclick="logout()">🚪 Đăng xuất</button>
+    </div>
+    <!-- 🧩 Thêm ô tìm kiếm -->
+    <div style="text-align: right; margin-top: 10px">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Tìm kiếm theo tên khách mời..."
+        style="padding: 5px; width: 300px"
+      />
+    </div>
+    <button onclick="exportToExcel()">📥 Xuất Excel</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25px">STT</th>
+          <th style="width: 275px">Tên khách mời</th>
+          <th style="width: 80px">Trạng thái</th>
+          <th style="width: 275px">Message</th>
+        </tr>
+      </thead>
+      <tbody id="rsvpTableBody"></tbody>
+    </table>
+
+    <div style="width: 100%; max-width: 400px; height: 300px; margin: auto">
+      <canvas id="rsvpChart"></canvas>
+    </div>
+
+    <script src="/huyentrang/admin/config.js"></script>
+    <script>
+      const { createClient } = supabase;
+      const supabaseClient = createClient(
+        CONFIG.SUPABASE_URL,
+        CONFIG.SUPABASE_KEY
+      );
+
+      // Nếu chưa đăng nhập thì quay về login
+      if (localStorage.getItem("loggedInAdmin") !== "true") {
+        window.location.href = "login.html";
+      }
+
+      function logout() {
+        localStorage.removeItem("loggedInAdmin");
+        window.location.href = "login.html";
+      }
+      let allThemes = [];
+
+      async function loadData() {
+        const { data, error } = await supabaseClient
+          .from("rsvp_messages")
+          .select("*")
+          .order("id", { ascending: false });
+
+        if (error) {
+          document.getElementById(
+            "rsvpTableBody"
+          ).innerHTML = `<tr><td colspan="4">⚠️ Lỗi tải dữ liệu</td></tr>`;
+          return;
+        }
+
+        allThemes = data;
+        renderData(allThemes);
+      }
+
+      function renderData(data) {
+        const tbody = document.getElementById("rsvpTableBody");
+        tbody.innerHTML = "";
+
+        data.forEach((item, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${item.name}</td>
+        <td>${item.confirmation == "1" ? "Có tham dự" : "Không tham dự"}</td>
+        <td>${item.message}</td>
+
+      `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // 🔍 Tìm kiếm theo tên thiệp
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const filtered = allThemes.filter((item) =>
+          item.name.toLowerCase().includes(keyword)
+        );
+        renderData(filtered);
+      });
+
+      async function deleteEntry(id, name) {
+        if (!confirm("Bạn có chắc muốn xoá " + name + " không ?")) return;
+
+        const { error } = await supabaseClient
+          .from("rsvp_messages")
+          .delete()
+          .eq("id", id);
+
+        if (error) return alert("❌ Xoá thất bại: " + error.message);
+        loadData();
+      }
+
+      loadData();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script>
+      const supabase = window.supabase.createClient(
+        CONFIG.SUPABASE_URL,
+        CONFIG.SUPABASE_KEY
+      );
+
+      async function loadDataAndChart() {
+        const { data, error } = await supabase
+          .from("rsvp_messages")
+          .select("*");
+
+        if (error) {
+          console.error("Lỗi khi load dữ liệu:", error);
+          return;
+        }
+
+        const countYes = data.filter((item) => item.confirmation == "1").length;
+        const countNo = data.filter((item) => item.confirmation == "0").length;
+
+        const ctx = document.getElementById("rsvpChart").getContext("2d");
+        new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: ["Có tham dự", "Không tham dự"],
+            datasets: [
+              {
+                label: "Số lượng",
+                data: [countYes, countNo],
+                backgroundColor: ["#4caf50", "#f44336"],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+          },
+        });
+      }
+
+      loadDataAndChart();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script>
+      async function exportToExcel() {
+        const { data, error } = await supabase
+          .from("rsvp_messages")
+          .select("*");
+
+        if (error) {
+          alert("Lỗi lấy dữ liệu");
+          console.error(error);
+          return;
+        }
+
+        // Chuyển confirmation sang văn bản
+        const formattedData = data.map((item, index) => ({
+          STT: index + 1,
+          "Tên khách mời": item.name,
+          "Trạng thái": item.confirmation == 1 ? "Có tham dự" : "Không tham dự",
+          "Lời nhắn": item.message,
+        }));
+
+        // Tạo sheet và export
+        const worksheet = XLSX.utils.json_to_sheet(formattedData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "RSVP");
+
+        XLSX.writeFile(workbook, "danh_sach_rsvp.xlsx");
+      }
+    </script>
+  </body>
+</html>
