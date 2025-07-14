@@ -748,12 +748,12 @@
 
     // Nếu chưa đăng nhập thì quay về login
     if (localStorage.getItem("loggedInAdmin") !== "true") {
-      window.location.href = "login.html";
+      window.location.href = "/huyentrang/admin/login.html";
     }
 
     function logout() {
       localStorage.removeItem("loggedInAdmin");
-      window.location.href = "login.html";
+      window.location.href = "/huyentrang/admin/login.html";
     }
     let allThemes = [];
 
