@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đăng nhập Admin</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+  </head>
+  <body>
+    <h2>🔐 Đăng nhập Admin</h2>
+    <input type="text" id="adminUser" placeholder="Tên đăng nhập" />
+    <input type="password" id="adminPass" placeholder="Mật khẩu" />
+    <button onclick="login()">Đăng nhập</button>
+    <div id="loginMessage"></div>
+
+    <script src="config.js"></script>
+    <script>
+      const { createClient } = supabase;
+      const supabaseClient = createClient(
+        CONFIG.SUPABASE_URL,
+        CONFIG.SUPABASE_KEY
+      );
+
+      async function login() {
+        const user = document.getElementById("adminUser").value.trim();
+        const pass = document.getElementById("adminPass").value;
+
+        const { data, error } = await supabaseClient
+          .from("admins")
+          .select("username, password")
+          .eq("username", user)
+          .single();
+
+        if (error || !data) {
+          document.getElementById("loginMessage").innerText =
+            "❌ Sai tài khoản hoặc mật khẩu!";
+          return;
+        }
+
+        // Sử dụng dcodeIO.bcrypt thay vì bcrypt
+        const isValid = dcodeIO.bcrypt.compareSync(pass, data.password);
+
+        if (!isValid) {
+          document.getElementById("loginMessage").innerText =
+            "❌ Sai tài khoản hoặc mật khẩu!";
+          return;
+        }
+
+        localStorage.setItem("loggedInAdmin", "true");
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>
