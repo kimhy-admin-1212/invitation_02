@@ -1830,6 +1830,7 @@
       #BOX51 > .ladi-box,
       #BOX27 > .ladi-box,
       #BOX28 > .ladi-box,
+      #BOX281 > .ladi-box,
       #BOX33 > .ladi-box,
       #BOX34 > .ladi-box,
       #BOX35 > .ladi-box,
@@ -1952,6 +1953,7 @@
       #BOX29 > .ladi-box:hover,
       #BOX27 > .ladi-box:hover,
       #BOX28 > .ladi-box:hover,
+      #BOX281 > .ladi-box:hover,
       #HEADLINE82 > .ladi-headline:hover,
       #BUTTON2 > .ladi-button:hover,
       #BUTTON_TEXT2 > .ladi-headline:hover,
@@ -1959,6 +1961,7 @@
       #HEADLINE84 > .ladi-headline:hover,
       #HEADLINE85 > .ladi-headline:hover,
       #BOX32 > .ladi-box:hover,
+      #BOX321 > .ladi-box:hover,
       #BOX33 > .ladi-box:hover,
       #HEADLINE86 > .ladi-headline:hover,
       #HEADLINE87 > .ladi-headline:hover,
@@ -2394,8 +2397,12 @@
       #BOX29 > .ladi-box,
       #BOX31 > .ladi-box,
       #BOX32 > .ladi-box,
+      #BOX321 > .ladi-box,
       #BOX41 > .ladi-box {
         background-color: rgba(242, 243, 244, 0);
+      }
+      #BOX29 > .ladi-box {
+        box-shadow: 0 0px 70px rgba(255, 105, 180, 0.8);
       }
       #HEADLINE13 {
         top: 13.8px;
@@ -2953,6 +2960,12 @@
         top: 0px;
         left: 18.5px;
       }
+      #GROUP91 {
+        width: 384.5px;
+        height: 33px;
+        top: 555px;
+        left: 18.5px;
+      }
       #HEADLINE79 {
         width: 204px;
       }
@@ -3198,13 +3211,14 @@
         background-attachment: scroll;
       }
       #SECTION7 {
-        height: 917.2px;
+        height: 725.2px;
       }
       #BOX29 {
-        width: 242px;
-        height: 430px;
+        width: 262px;
+        height: 450px;
         top: 41px;
-        left: 83px;
+        left: 90px;
+        position: absolute;
       }
       #BOX32 > .ladi-box {
         border-width: 1px;
@@ -3212,30 +3226,41 @@
         border-style: solid;
         border-color: rgb(1, 1, 1);
       }
-
+      #BOX321 > .ladi-box {
+        border-width: 1px;
+        border-radius: 24px;
+        border-style: solid;
+        border-color: rgb(255 105 180);
+      }
       #BOX29 > .ladi-box {
         border-width: 1px;
-        border-radius: 0px;
+        border-radius: 24px;
         border-style: solid;
         border-color: rgb(0, 0, 0);
       }
       #BOX27 {
-        width: 220px;
-        height: 410px;
+        width: 240px;
+        height: 430px;
       }
-      #BOX27,
       #FORM_ITEM5 {
-        top: 50px;
+        top: 51px;
         left: 93px;
+        position: absolute;
+      }
+      #BOX27 {
+        top: 51px;
+        left: 100px;
+        position: absolute;
       }
       #BOX27 > .ladi-box {
         background-color: rgb(33, 33, 33);
+        border-radius: 20px;
       }
       #BOX28 {
-        width: 194px;
-        height: 230px;
+        width: 214px;
+        height: 250px;
         top: 66px;
-        left: 106px;
+        left: 113px;
       }
       #BOX28 > .ladi-box {
         background-image: url("https://w.ladicdn.com/s500x550/67063ea72e6658001261e54a/1q0a7613-20250620104602-8bd1x.jpg");
@@ -3244,8 +3269,30 @@
         background-position: 50% 0%;
         background-repeat: repeat;
         background-attachment: scroll;
+        border-radius: 16px;
       }
       #BOX28.ladi-animation > .ladi-box {
+        animation-name: rollIn;
+        animation-delay: 1s;
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+      }
+      #BOX281 {
+        width: 304px;
+        height: 51px;
+        top: 614px;
+        left: 93px;
+      }
+      #BOX281 > .ladi-box {
+        background-image: url("/theme_10/lib/wave.png");
+        background-size: contain;
+        background-origin: content-box;
+        background-position: 50% 0%;
+        background-repeat: repeat;
+        background-attachment: scroll;
+        border-radius: 16px;
+      }
+      #BOX281.ladi-animation > .ladi-box {
         animation-name: rollIn;
         animation-delay: 1s;
         animation-duration: 1s;
@@ -3254,8 +3301,8 @@
       #GROUP21 {
         width: 177.578px;
         height: 58.5px;
-        top: 305px;
-        left: 115.422px;
+        top: 325px;
+        left: 128.422px;
       }
       #GROUP21.ladi-animation > .ladi-group {
         animation-name: pulse;
@@ -3270,7 +3317,7 @@
       }
       #HEADLINE82 > .ladi-headline {
         font-family: IzlTbGlkZTAIFFaWNrcGVuLnRZg;
-        font-size: 21.88px;
+        font-size: 16.88px;
         line-height: 1.6;
         color: rgb(255, 255, 255);
         text-align: center;
@@ -3492,6 +3539,12 @@
         width: 379.019px;
         height: 75px;
         top: 32px;
+        left: 18.9605px;
+      }
+      #BOX321 {
+        width: 379.019px;
+        height: 75px;
+        top: 600px;
         left: 18.9605px;
       }
       #BOX33 {
@@ -3797,7 +3850,7 @@
       }
 
       .range {
-        margin-top: 70px;
+        margin-top: 65px;
       }
 
       input[type="range"] {
@@ -3806,7 +3859,7 @@
         background: #ccc;
         border-radius: 5px;
         outline: none;
-        accent-color: #007bff; /* màu thanh chạy */
+        accent-color: #ffffff; /* màu thanh chạy */
       }
     </style>
     <script>
@@ -3819,6 +3872,7 @@
       //Random music
       let index = Math.floor(Math.random() * phamngocsonmedia_List.length);
       const audio = new Audio(phamngocsonmedia_List[index]);
+      audio.volume = 0.2;
 
       function phamngocsonmediasound__() {
         audio.play();
@@ -4330,7 +4384,7 @@
             <div class="ladi-group">
               <div id="HEADLINE82" class="ladi-element">
                 <p class="ladi-headline ladi-transition ladi-lazyload">
-                  Sổ lưu bút
+                  Âm nhạc tình yêu
                 </p>
               </div>
               <div id="IMAGE5" class="ladi-element">
@@ -4349,7 +4403,7 @@
               <span id="duration">0:00</span>
             </div>
 
-            <div class="controls">
+            <div class="controls" style="margin-top: 5px">
               <img
                 src="/theme_10/lib/backward.png"
                 alt="back"
@@ -4372,6 +4426,37 @@
             </div>
 
             <audio id="myAudio" src="https://camcui.vn/bai30.mp3"></audio>
+          </div>
+          <div id="GROUP91" class="ladi-element">
+            <div class="ladi-group">
+              <div id="HEADLINE79" class="ladi-element">
+                <p class="ladi-headline ladi-transition ladi-lazyload">
+                  Lời nói tình yêu
+                </p>
+              </div>
+              <div id="LINE8" class="ladi-element">
+                <div class="ladi-line">
+                  <div class="ladi-line-container"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="BOX321" class="ladi-element">
+            <div class="ladi-box ladi-transition ladi-lazyload"></div>
+          </div>
+          <div id="BOX281" class="ladi-element ladi-animation-hidden">
+            <div class="ladi-box ladi-transition ladi-lazyload"></div>
+            <div class="controls1" style="margin-top: 20px">
+              <img
+                src="/theme_10/lib/play1.png"
+                alt="play"
+                onclick="playMusic()"
+                id="playBtnMusic"
+                style="width: 32px; margin-left: -56px; margin-top: -15px"
+              />
+            </div>
+            <audio id="myAudio1" src="https://camcui.vn/bai30.mp3"></audio>
           </div>
         </div>
       </div>
@@ -5028,6 +5113,7 @@
         "BOX23": { "a": "box", "D": "fadeInRight", "A": "1s" },
         "BOX24": { "a": "box", "D": "fadeInLeft", "A": "1s" },
         "BOX28": { "a": "box", "D": "rollIn", "A": "1s" },
+        "BOX281": { "a": "box", "D": "rollIn", "A": "1s" },
         "BUTTON2": { "a": "button", "D": "fadeInUp", "A": "1s" },
         "FORM_ITEM2": { "a": "form_item", "bS": "text", "bQ": 1 },
         "FORM_ITEM5": { "a": "form_item", "bS": "textarea", "bQ": 4 },
@@ -5194,6 +5280,31 @@
         const s = Math.floor(sec % 60);
         return `${m}:${s < 10 ? "0" + s : s}`;
       }
+    </script>
+
+    <script>
+      const myAudio1 = document.getElementById("myAudio1");
+      const playBtnMusic = document.getElementById("playBtnMusic");
+
+      let isPlaying1 = false;
+
+      function playMusic() {
+        if (isPlaying1) {
+          myAudio1.pause();
+        } else {
+          myAudio1.play();
+        }
+      }
+
+      myAudio1.addEventListener("play", () => {
+        isPlaying1 = true;
+        playBtnMusic.src = "/theme_10/lib/pause1.png";
+      });
+
+      myAudio1.addEventListener("pause", () => {
+        isPlaying1 = false;
+        playBtnMusic.src = "/theme_10/lib/play1.png";
+      });
     </script>
   </body>
   <savior-host
