@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sóng tim chạy mượt</title>
+    <style>
+      body {
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .heartbeat-container {
+        position: relative;
+        width: 500px; /* Chiều ngang cố định */
+        height: 80px;
+        border: 2px solid #e74c3c;
+        border-radius: 40px;
+        overflow: hidden;
+        padding-left: 60px; /* Chừa nút play */
+        box-sizing: border-box;
+        background: #fff;
+      }
+
+      .play-button {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        background: #e74c3c;
+        clip-path: polygon(20% 0%, 100% 50%, 20% 100%);
+      }
+
+      .heartbeat-scroll {
+        display: flex;
+        width: max-content;
+        animation: scroll-heartbeat 8s linear infinite;
+      }
+
+      .heartbeat-scroll img {
+        height: 60px;
+        margin-right: 20px;
+      }
+
+      @keyframes scroll-heartbeat {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heartbeat-container">
+      <div class="play-button"></div>
+      <div class="heartbeat-scroll">
+        <!-- Nhân đôi hình để tạo loop mượt -->
+        <img src="/theme_10/lib/wave.png" alt="heartbeat" />
+      </div>
+    </div>
+  </body>
+</html>

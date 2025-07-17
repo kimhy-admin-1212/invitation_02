@@ -1817,6 +1817,7 @@
       #BOX4 > .ladi-box,
       #BOX6 > .ladi-box,
       #BOX13 > .ladi-box,
+      #BOX131 > .ladi-box,
       #BOX14 > .ladi-box,
       #BOX20 > .ladi-box,
       #BOX21 > .ladi-box,
@@ -1937,6 +1938,7 @@
       #HEADLINE65 > .ladi-headline:hover,
       #HEADLINE79 > .ladi-headline:hover,
       #BOX13 > .ladi-box:hover,
+      #BOX131 > .ladi-box:hover,
       #BOX14 > .ladi-box:hover,
       #HEADLINE80 > .ladi-headline:hover,
       #HEADLINE81 > .ladi-headline:hover,
@@ -2257,7 +2259,7 @@
         left: 13.5px;
       }
       #SECTION9 {
-        height: 1224.6px;
+        height: 1355.6px;
       }
       #BOX48,
       #BOX49 {
@@ -2370,7 +2372,7 @@
         text-align: right;
       }
       #LINE11 {
-        top: 1197px;
+        top: 1325px;
         left: 167px;
       }
       #SECTION3 {
@@ -2963,7 +2965,13 @@
       #GROUP91 {
         width: 384.5px;
         height: 33px;
-        top: 555px;
+        top: 1190px;
+        left: 18.5px;
+      }
+      #GROUP911 {
+        width: 384.5px;
+        height: 33px;
+        top: 50px;
         left: 18.5px;
       }
       #HEADLINE79 {
@@ -3013,7 +3021,22 @@
         background-repeat: repeat;
         background-attachment: scroll;
       }
+      #BOX131 {
+        width: 280px;
+        height: 392px;
+        top: 111.2px;
+        left: 90px;
+      }
+      #BOX131 > .ladi-box {
+        background-image: url("/theme_10/drunk_in_love/00.png");
+        background-size: cover;
+        background-origin: content-box;
+        background-position: 50% 0%;
+        background-repeat: repeat;
+        background-attachment: scroll;
+      }
       #BOX13 > .ladi-box,
+      #BOX131 > .ladi-box,
       #BOX16 > .ladi-box,
       #BOX17 > .ladi-box,
       #BOX50 > .ladi-box,
@@ -3021,6 +3044,7 @@
         box-shadow: rgb(0, 0, 0) 0px 10px 20px -19px;
       }
       #BOX13.ladi-animation > .ladi-box,
+      #BOX131.ladi-animation > .ladi-box,
       #BOX14.ladi-animation > .ladi-box {
         animation-name: flipInY;
         animation-delay: 1s;
@@ -3211,7 +3235,11 @@
         background-attachment: scroll;
       }
       #SECTION7 {
-        height: 725.2px;
+        height: 555.2px;
+      }
+
+      #SECTION4 {
+        height: 555.2px;
       }
       #BOX29 {
         width: 262px;
@@ -3230,7 +3258,7 @@
         border-width: 1px;
         border-radius: 24px;
         border-style: solid;
-        border-color: rgb(255 105 180);
+        border-color: rgb(255 0 0);
       }
       #BOX29 > .ladi-box {
         border-width: 1px;
@@ -3278,25 +3306,36 @@
         animation-iteration-count: 1;
       }
       #BOX281 {
-        width: 304px;
-        height: 51px;
-        top: 614px;
-        left: 93px;
+        width: 310px;
+        height: 50px;
+        top: 1248px;
+        left: 87px;
       }
       #BOX281 > .ladi-box {
         background-image: url("/theme_10/lib/wave.png");
         background-size: contain;
         background-origin: content-box;
-        background-position: 50% 0%;
-        background-repeat: repeat;
+        background-position: 0% 0%;
+        background-repeat: repeat-x;
         background-attachment: scroll;
         border-radius: 16px;
+        animation: waveScroll 5s linear infinite;
+      }
+
+      @keyframes waveScroll {
+        0% {
+          background-position: 0px 0px;
+        }
+        100% {
+          background-position: -500px 0;
+        }
       }
       #BOX281.ladi-animation > .ladi-box {
         animation-name: rollIn;
         animation-delay: 1s;
         animation-duration: 1s;
         animation-iteration-count: 1;
+        animation: rollIn 1s ease-in-out 1, waveScroll 5s linear infinite;
       }
       #GROUP21 {
         width: 177.578px;
@@ -3544,7 +3583,7 @@
       #BOX321 {
         width: 379.019px;
         height: 75px;
-        top: 600px;
+        top: 1235px;
         left: 18.9605px;
       }
       #BOX33 {
@@ -4251,6 +4290,37 @@
           <div id="LINE11" class="ladi-element">
             <div class="ladi-line"><div class="ladi-line-container"></div></div>
           </div>
+          <div id="GROUP91" class="ladi-element">
+            <div class="ladi-group">
+              <div id="HEADLINE79" class="ladi-element">
+                <p class="ladi-headline ladi-transition ladi-lazyload">
+                  Lời nói tình yêu
+                </p>
+              </div>
+              <div id="LINE8" class="ladi-element">
+                <div class="ladi-line">
+                  <div class="ladi-line-container"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="BOX321" class="ladi-element">
+            <div class="ladi-box ladi-transition ladi-lazyload"></div>
+          </div>
+          <div id="BOX281" class="ladi-element ladi-animation-hidden">
+            <div class="ladi-box ladi-transition ladi-lazyload"></div>
+            <div class="controls1" style="margin-top: 20px">
+              <img
+                src="/theme_10/lib/play1.png"
+                alt="play"
+                onclick="playMusic()"
+                id="playBtnMusic"
+                style="width: 32px; margin-left: -50px; margin-top: -13px"
+              />
+            </div>
+            <audio id="myAudio1" src="https://camcui.vn/bai30.mp3"></audio>
+          </div>
         </div>
       </div>
       <div id="SECTION3" class="ladi-section">
@@ -4427,11 +4497,16 @@
 
             <audio id="myAudio" src="https://camcui.vn/bai30.mp3"></audio>
           </div>
-          <div id="GROUP91" class="ladi-element">
+        </div>
+      </div>
+      <div id="SECTION4" class="ladi-section">
+        <div class="ladi-section-background ladi-lazyload"></div>
+        <div class="ladi-container">
+          <div id="GROUP911" class="ladi-element">
             <div class="ladi-group">
               <div id="HEADLINE79" class="ladi-element">
                 <p class="ladi-headline ladi-transition ladi-lazyload">
-                  Lời nói tình yêu
+                  Game hiểu nhau
                 </p>
               </div>
               <div id="LINE8" class="ladi-element">
@@ -4441,22 +4516,12 @@
               </div>
             </div>
           </div>
-
-          <div id="BOX321" class="ladi-element">
-            <div class="ladi-box ladi-transition ladi-lazyload"></div>
-          </div>
-          <div id="BOX281" class="ladi-element ladi-animation-hidden">
-            <div class="ladi-box ladi-transition ladi-lazyload"></div>
-            <div class="controls1" style="margin-top: 20px">
-              <img
-                src="/theme_10/lib/play1.png"
-                alt="play"
-                onclick="playMusic()"
-                id="playBtnMusic"
-                style="width: 32px; margin-left: -56px; margin-top: -15px"
-              />
-            </div>
-            <audio id="myAudio1" src="https://camcui.vn/bai30.mp3"></audio>
+          <div id="BOX131" class="ladi-element ladi-animation-hidden">
+            <div
+              class="ladi-box ladi-transition ladi-lazyload"
+              id="randomImage"
+              onclick="showRandomImage()"
+            ></div>
           </div>
         </div>
       </div>
@@ -5101,6 +5166,7 @@
         "HEADLINE79": { "a": "headline", "D": "bounceInLeft", "A": "0s" },
         "LINE8": { "a": "line", "D": "bounceInRight", "A": "0s" },
         "BOX13": { "a": "box", "D": "flipInY", "A": "1s" },
+        "BOX131": { "a": "box", "D": "flipInY", "A": "1s" },
         "BOX14": { "a": "box", "D": "flipInY", "A": "1s" },
         "HEADLINE80": { "a": "headline", "D": "fadeInUp", "A": "1s" },
         "HEADLINE81": { "a": "headline", "D": "fadeInUp", "A": "1s" },
@@ -5305,6 +5371,30 @@
         isPlaying1 = false;
         playBtnMusic.src = "/theme_10/lib/play1.png";
       });
+    </script>
+
+    <script>
+      const allImagePaths = [];
+      for (let i = 1; i <= 73; i++) {
+        const num = i.toString().padStart(2, "0");
+        allImagePaths.push(`/theme_10/drunk_in_love/${num}.png`);
+      }
+
+      let remainingImages = [...allImagePaths]; // Danh sách ảnh chưa hiện
+
+      function showRandomImage() {
+        const imgElement = document.getElementById("randomImage");
+
+        if (remainingImages.length === 0) {
+          // Khi hết ảnh thì reset lại
+          remainingImages = [...allImagePaths];
+        }
+
+        const randomIndex = Math.floor(Math.random() * remainingImages.length);
+        const selectedImage = remainingImages.splice(randomIndex, 1)[0]; // Lấy và loại ảnh khỏi danh sách
+
+        imgElement.style.backgroundImage = `url("${selectedImage}")`;
+      }
     </script>
   </body>
   <savior-host
