@@ -21,9 +21,11 @@ async function kiemTra() {
     }
 
     if (data) {
-      window.location.href = `thiepmoi.html?ma=${encodeURIComponent(ma)}`;
+      window.location.href = `/thienha/thiepmoi.html?ma=${encodeURIComponent(
+        ma
+      )}`;
     } else {
-      window.location.href = `thiepmoi.html?ma=guest`;
+      window.location.href = `/thienha/thiepmoi.html?ma=guest`;
     }
   } catch (error) {
     console.error("Lỗi ngoài ý muốn:", error);
