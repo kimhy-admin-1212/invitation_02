@@ -753,7 +753,7 @@
 
     async function loadData() {
       const { data, error } = await supabaseClient
-        .from("rsvp_messages_ thienha")
+        .from("rsvp_messages_thienha")
         .select("*")
         .order("id", { ascending: false });
 
@@ -819,7 +819,7 @@
       if (!confirm("Bạn có chắc muốn xoá " + name + " không ?")) return;
 
       const { error } = await supabaseClient
-        .from("rsvp_messages_ thienha")
+        .from("rsvp_messages_thienha")
         .delete()
         .eq("id", id);
 
@@ -838,7 +838,7 @@
 
     async function loadDataAndChart() {
       const { data, error } = await supabase
-        .from("rsvp_messages_ thienha")
+        .from("rsvp_messages_thienha")
         .select("*");
 
       if (error) {

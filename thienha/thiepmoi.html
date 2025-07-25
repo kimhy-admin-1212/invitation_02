@@ -5921,7 +5921,7 @@
           }
 
           const { error } = await supabase
-            .from("rsvp_messages_ thienha")
+            .from("rsvp_messages_thienha")
             .insert([{ name, message, confirmation }]);
 
           if (error) {
