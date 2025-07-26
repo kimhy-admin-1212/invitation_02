@@ -80,7 +80,6 @@
 
       tr.innerHTML = `
       <td class="p-2 text-center">${start + index + 1}</td>
-      <td class="p-2 text-center">${item.ma}</td>
       <td class="p-2 text-center">${item.ten}</td>
       <td class="p-2 text-center">${item.group_name}</td>
       <td class="p-2 text-center">
