@@ -258,7 +258,7 @@
 
     updateTableSelectOptions(allThemes, 10, user); // 👈 thêm dòng này
 
-    document.getElementById("editTable").value = user.table_number;
+    document.getElementById("editTable").value = String(user.table_number || 0);
     document.getElementById("editPopupOverlay").style.display = "flex";
   };
 
@@ -364,8 +364,8 @@
     const tableCount = {};
 
     guestList.forEach((guest) => {
-      const table = guest.table_number;
-      if (!table || table === 0) return;
+      const table = parseInt(guest.table_number);
+      if (!table || isNaN(table)) return;
 
       const attend = parseInt(guest.attend_person) || 0;
       const totalPeople = 1 + attend;
