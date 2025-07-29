@@ -52,12 +52,11 @@
     // 🔢 Đếm số người ở mỗi bàn
     const tableCounts = {};
     data.forEach((item) => {
-      if (!tableCounts[item.table_number]) {
-        tableCounts[item.table_number] = 0;
-      }
-      if (item.table_number && item.table_number !== 0) {
-        tableCounts[item.table_number]++;
-      }
+      if (!item.table_number || item.table_number === 0) return;
+      const attend = parseInt(item.attend_person) || 0;
+      const total = 1 + attend;
+      tableCounts[item.table_number] =
+        (tableCounts[item.table_number] || 0) + total;
     });
 
     pageData.forEach((item, index) => {
@@ -80,7 +79,7 @@
 
       tr.innerHTML = `
       <td class="p-2 text-center">${start + index + 1}</td>
-      <td class="p-2 text-center">${item.ten}</td>
+      <td class="p-2 text-center">${item.ten} (${item.attend_person})</td>
       <td class="p-2 text-center">${item.group_name}</td>
       <td class="p-2 text-center">
         <select class="w-full border rounded px-3 py-2 table-select" data-id="${
@@ -254,9 +253,12 @@
 
     document.getElementById("editMa").value = user.ma;
     document.getElementById("editName").value = user.ten;
+    document.getElementById("editAttendPerson").value = user.attend_person;
     document.getElementById("editGroup").value = user.group_name;
-    document.getElementById("editTable").value = user.table_number;
 
+    updateTableSelectOptions(allThemes, 10, user); // 👈 thêm dòng này
+
+    document.getElementById("editTable").value = user.table_number;
     document.getElementById("editPopupOverlay").style.display = "flex";
   };
 
@@ -265,10 +267,11 @@
     const ten = document.getElementById("editName").value.trim();
     const group_name = document.getElementById("editGroup").value;
     const table_number = document.getElementById("editTable").value;
+    const attend_person = document.getElementById("editAttendPerson").value;
 
     const { error } = await supabase
       .from(window.currentTable)
-      .update({ ma, ten, group_name, table_number })
+      .update({ ma, ten, group_name, table_number, attend_person })
       .eq("ma", ma);
 
     if (error) {
@@ -295,68 +298,107 @@
     Object.keys(tables).forEach((tableNum) => {
       const guests = tables[tableNum];
 
+      // ✅ Tính tổng số người ngồi bàn này
+      const totalPeople = guests.reduce(
+        (sum, g) => sum + 1 + (parseInt(g.attend_person) || 0),
+        0
+      );
+
+      const maxPeople = 10; // 🎯 Bạn có thể thay đổi giới hạn ở đây
+      const isOverLimit = totalPeople > maxPeople;
+
+      // ✅ Cảnh báo nếu vượt quá
+      const warningHTML = isOverLimit
+        ? `<span class="text-red-600 font-bold ml-2">⚠️ Quá ${
+            totalPeople - maxPeople
+          } người!</span>`
+        : "";
+
       const card = document.createElement("div");
       card.className = "w-full px-3 mt-0 lg:w-1/3 lg:flex-none";
       card.style.marginBottom = "20px";
 
       card.innerHTML = `
-  <div class="shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl bg-white">
-    <div class="p-6 pb-0 mb-0">
-      <div class="flex items-center justify-between flex-wrap">
-        <h6 class="dark:text-white text-base font-semibold">
-          🪑 Bàn ${tableNum}
-        </h6>
-      </div>
-    </div>
+      <div class="shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl bg-white">
+        <div class="p-6 pb-0 mb-0">
+          <div class="flex items-center justify-between flex-wrap">
+            <h6 class="dark:text-white text-base font-semibold">
+              🪑 Bàn ${tableNum} ${warningHTML}
+            </h6>
+          </div>
+        </div>
 
-    <div class="flex-auto px-0 pt-0 pb-2">
-      <div class="p-0 overflow-x-auto">
-        <ul style="max-height: 240px;" class="overflow-y-auto pr-2 custom-scroll list-disc pl-6 text-sm leading-6 text-gray-800 space-y-1">
-          ${guests
-            .map(
-              (g) => `
-                <li>
-                  <span class="font-medium">${g.ten}</span>
-                  <span class="text-gray-500">(${
-                    g.group_name || "Không rõ"
-                  })</span>
-                </li>
-              `
-            )
-            .join("")}
-        </ul>
+        <div class="flex-auto px-0 pt-0 pb-2">
+          <div class="p-0 overflow-x-auto">
+            <ul style="max-height: 240px;" class="overflow-y-auto pr-2 custom-scroll list-disc pl-6 text-sm leading-6 text-gray-800 space-y-1">
+              ${guests
+                .map(
+                  (g) => `
+                    <li>
+                      <span class="font-medium">${g.ten}</span>
+                      <span class="text-gray-500">(${
+                        g.group_name || "Không rõ"
+                      })</span>
+                      <span class="text-gray-500" style="color:red;"><b>(${
+                        parseInt(g.attend_person) || 0
+                      })</b></span>
+                    </li>
+                  `
+                )
+                .join("")}
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-`;
+    `;
 
       container.appendChild(card);
     });
   }
 
-  function updateTableSelectOptions(guestList, maxPeoplePerTable = 10) {
+  function updateTableSelectOptions(
+    guestList,
+    maxPeoplePerTable = 10,
+    currentGuest = null
+  ) {
     const tableCount = {};
 
-    // Đếm số người ở mỗi bàn dựa vào field 'table_number'
     guestList.forEach((guest) => {
       const table = guest.table_number;
-      if (!table) return;
-      tableCount[table] = (tableCount[table] || 0) + 1;
+      if (!table || table === 0) return;
+
+      const attend = parseInt(guest.attend_person) || 0;
+      const totalPeople = 1 + attend;
+
+      tableCount[table] = (tableCount[table] || 0) + totalPeople;
     });
 
     const select = document.getElementById("editTable");
     select.innerHTML = '<option value="0">Chưa chọn</option>';
 
-    const totalGuests = guestList.length;
-    const maxTableNumber = Math.ceil(totalGuests / maxPeoplePerTable);
+    const maxTableNumber = Math.max(
+      ...Object.keys(tableCount).map(Number),
+      Math.ceil(guestList.length / maxPeoplePerTable)
+    );
 
     for (let i = 1; i <= maxTableNumber; i++) {
-      const peopleInTable = tableCount[i] || 0;
-      if (peopleInTable >= maxPeoplePerTable) continue;
+      const currentCount = tableCount[i] || 0;
+
+      // Kiểm tra nếu bàn này đầy nhưng là bàn của người đang sửa
+      const isCurrentGuestTable =
+        currentGuest && parseInt(currentGuest.table_number) === i;
+
+      if (currentCount >= maxPeoplePerTable && !isCurrentGuestTable) continue;
 
       const option = document.createElement("option");
       option.value = i;
-      option.textContent = `Bàn ${i} (${peopleInTable}/${maxPeoplePerTable})`;
+      option.textContent = `Bàn ${i} (${currentCount}/${maxPeoplePerTable})`;
+
+      // Chọn bàn đang dùng
+      if (isCurrentGuestTable) {
+        option.selected = true;
+      }
+
       select.appendChild(option);
     }
   }
