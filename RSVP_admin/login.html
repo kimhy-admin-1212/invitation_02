@@ -294,21 +294,23 @@
 
       const { data, error } = await supabaseClient
         .from("admins")
-        .select("username, password, role") // nhớ chọn thêm role
+        .select("username, password, role, status") // nhớ chọn thêm role
         .eq("username", user)
         .single();
+
+      const isValid = dcodeIO.bcrypt.compareSync(pass, data.password);
 
       if (error || !data) {
         document.getElementById("loginMessage").innerText =
           "❌ Sai tài khoản hoặc mật khẩu!";
         return;
-      }
-
-      const isValid = dcodeIO.bcrypt.compareSync(pass, data.password);
-
-      if (!isValid) {
+      } else if (!isValid) {
         document.getElementById("loginMessage").innerText =
           "❌ Sai tài khoản hoặc mật khẩu!";
+        return;
+      } else if (data.status != 0) {
+        document.getElementById("loginMessage").innerText =
+          "❌ Tài khoản của bạn đã bị khoá. Vui lòng liên hệ Kim Hỷ!";
         return;
       }
 
