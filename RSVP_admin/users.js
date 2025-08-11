@@ -51,19 +51,27 @@ let supabase; // 👈 biến toàn cục
           }"></i>
         </td>
         <td
-  class="p-2 text-center"
-  style="font-weight: bold; cursor: pointer; color: ${
-    String(item.status) === "1" ? "red" : "green"
-  }"
-  onclick="window.toggleStatus(${item.id}, '${item.status}')"
->
-  <i class="bi ${
-    String(item.status) === "1" ? "bi-x-circle" : "bi-check-circle"
-  }"></i>
-</td>
-
-
-
+          class="p-2 text-center"
+          style="font-weight: bold; cursor: pointer; color: ${
+            String(item.status) === "1" ? "red" : "green"
+          }"
+          onclick="window.toggleStatus(${item.id}, '${item.status}')"
+        >
+          <i class="bi ${
+            String(item.status) === "1" ? "bi-x-circle" : "bi-check-circle"
+          }"></i>
+        </td>
+        <td
+          class="p-2 text-center"
+          style="font-weight: bold; cursor: pointer; color: ${
+            String(item.guest_list) === "1" ? "red" : "green"
+          }"
+          onclick="window.toggleStatus_1(${item.id}, '${item.guest_list}')"
+        >
+          <i class="bi ${
+            String(item.guest_list) === "1" ? "bi-x-circle" : "bi-check-circle"
+          }"></i>
+        </td>
         <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent text-center adminOnly">
         <a class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" href="#" onclick="editUser(${
           item.id
@@ -124,6 +132,30 @@ let supabase; // 👈 biến toàn cục
     await loadDataFromTable();
   };
 
+  window.toggleStatus_1 = async function (id, currentGuestList) {
+    console.log(
+      "🟡 Đang toggle id:",
+      id,
+      "Trạng thái hiện tại:",
+      currentGuestList
+    );
+
+    const newStatus = currentGuestList === "1" ? "0" : "1";
+
+    const { error } = await supabase
+      .from("admins")
+      .update({ guest_list: newStatus })
+      .eq("id", id);
+
+    if (error) {
+      alert("❌ Không thể cập nhật trạng thái: " + error.message);
+      return;
+    }
+
+    console.log("✅ Cập nhật thành công!");
+    await loadDataFromTable();
+  };
+
   // ✅ Load lần đầu
   await loadDataFromTable();
 
@@ -135,6 +167,7 @@ let supabase; // 👈 biến toàn cục
     document.getElementById("editUsername").value = user.username;
     document.getElementById("editRole").value = user.role;
     document.getElementById("editStatus").value = user.status;
+    document.getElementById("editGuestList").value = user.guest_list;
 
     document.getElementById("editPopupOverlay").style.display = "flex";
   };
@@ -144,10 +177,11 @@ let supabase; // 👈 biến toàn cục
     const username = document.getElementById("editUsername").value.trim();
     const role = document.getElementById("editRole").value;
     const status = document.getElementById("editStatus").value;
+    const guest_list = document.getElementById("editGuestList").value;
 
     const { error } = await supabase
       .from("admins")
-      .update({ username, role, status })
+      .update({ username, role, status, guest_list })
       .eq("id", id);
 
     if (error) {
@@ -161,5 +195,42 @@ let supabase; // 👈 biến toàn cục
 
   window.closePopup = function () {
     document.getElementById("editPopupOverlay").style.display = "none";
+  };
+
+  window.openAddPopup = function () {
+    document.getElementById("newUsername").value = "";
+    document.getElementById("newRole").value = "1";
+    document.getElementById("newStatus").value = "0";
+    document.getElementById("newGuestList").value = "1";
+    document.getElementById("addPopupOverlay").style.display = "flex";
+  };
+  window.saveUser = async function () {
+    const username = document.getElementById("newUsername").value.trim();
+    const role = document.getElementById("newRole").value;
+    const status = document.getElementById("newStatus").value;
+    const guest_list = document.getElementById("newGuestList").value;
+    const password =
+      "$2a$12$/FYTj3B4OrEv72ss68wcnuQiXrE84QO9t0/h/LyFwrkTo9v1pHSkK";
+
+    if (!username) return alert("⚠️ Vui lòng nhập tên đăng nhập!");
+
+    const { error } = await supabase.from("admins").insert({
+      username,
+      role,
+      status,
+      guest_list,
+      password,
+    });
+
+    if (error) {
+      alert("❌ Thêm thất bại: " + error.message);
+      return;
+    }
+
+    closeAddPopup();
+    await loadDataFromTable();
+  };
+  window.closeAddPopup = function () {
+    document.getElementById("addPopupOverlay").style.display = "none";
   };
 })();

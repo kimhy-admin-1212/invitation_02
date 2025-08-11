@@ -136,9 +136,7 @@
           }
 
           allThemes = updatedData;
-          renderData(allThemes);
-          renderTableCards(allThemes);
-          updateTableSelectOptions(allThemes, 10);
+          await loadDataFromTable(window.currentTable);
         }
       });
     });

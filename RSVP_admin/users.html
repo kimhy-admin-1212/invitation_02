@@ -1,5 +1,6 @@
 <style>
-  #editPopupOverlay {
+  #editPopupOverlay,
+  #addPopupOverlay {
     display: none;
     position: fixed;
     inset: 0;
@@ -9,7 +10,8 @@
     align-items: center;
   }
 
-  #editPopupOverlay .popup-box {
+  #editPopupOverlay .popup-box,
+  #addPopupOverlay .popup-box {
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -30,8 +32,16 @@
         <div class="p-6 pb-0 mb-0">
           <div class="flex items-center justify-between flex-wrap">
             <h6 class="dark:text-white text-base font-semibold">
-              Xác nhận tham dự và lời chúc
+              Quản lý người dùng hệ thống
             </h6>
+            <div class="flex items-center">
+              <a
+                class="inline-block w-full px-8 py-2 text-xs font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md select-none bg-150 bg-x-25 hover:shadow-xs hover:-translate-y-px"
+                href="#"
+                onclick="openAddPopup()"
+                >Thêm người dùng mới</a
+              >
+            </div>
           </div>
         </div>
 
@@ -48,6 +58,7 @@
                   </th>
                   <th class="px-6 py-3 text-center">Role</th>
                   <th class="px-6 py-3 text-center">Trạng thái</th>
+                  <th class="px-6 py-3 text-center">Guest List</th>
                   <th class="px-6 py-3 text-center adminOnly"></th>
                 </tr>
               </thead>
@@ -98,6 +109,13 @@
         <option value="1">Khoá</option>
       </select>
     </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-1">Guest List:</label>
+      <select id="editGuestList" class="w-full border rounded px-3 py-2">
+        <option value="0">Có</option>
+        <option value="1">Không</option>
+      </select>
+    </div>
 
     <div class="flex justify-end space-x-2">
       <button
@@ -108,9 +126,69 @@
       </button>
       <button
         onclick="saveEdit()"
-        class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white"
+        class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-gray-800"
       >
         💾 Lưu
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="addPopupOverlay"
+  class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden"
+>
+  <div
+    class="bg-white rounded-xl shadow-2xl p-6 w-[90%] max-w-md relative"
+    style="width: 80%"
+  >
+    <h2 class="text-xl font-semibold mb-4">✨ Thêm người dùng mới</h2>
+
+    <div class="mb-3">
+      <label class="block text-sm font-medium mb-1">Tên đăng nhập:</label>
+      <input
+        type="text"
+        id="newUsername"
+        class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="block text-sm font-medium mb-1">Phân quyền:</label>
+      <select id="newRole" class="w-full border rounded px-3 py-2">
+        <option value="0">Admin</option>
+        <option value="1">User</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-1">Trạng thái:</label>
+      <select id="newStatus" class="w-full border rounded px-3 py-2">
+        <option value="0">Công khai</option>
+        <option value="1">Khoá</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-1">Guest List:</label>
+      <select id="newGuestList" class="w-full border rounded px-3 py-2">
+        <option value="0">Có</option>
+        <option value="1">Không</option>
+      </select>
+    </div>
+
+    <div class="flex justify-end space-x-2">
+      <button
+        onclick="closeAddPopup()"
+        class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 text-gray-800"
+      >
+        ❌ Huỷ
+      </button>
+      <button
+        onclick="saveUser()"
+        class="px-4 py-2 rounded bg-green-600 hover:bg-green-700 text-gray-800"
+      >
+        ➕ Thêm
       </button>
     </div>
   </div>
