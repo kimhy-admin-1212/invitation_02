@@ -139,7 +139,7 @@
               >
             </a>
           </li>
-          <li class="mt-0.5 w-full">
+          <li class="mt-0.5 w-full guestList">
             <a
               class="nav-item dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
               href="#"
@@ -800,17 +800,22 @@
   </script>
 
   <script>
-    const user2 = JSON.parse(localStorage.getItem("userInfo"));
-    if (user2?.role === 0) {
-      document.querySelectorAll(".adminOnly").forEach((el) => {
-        el.style.display = "block";
-      });
-    } else {
-      document.querySelectorAll(".adminOnly").forEach((el) => {
-        el.style.display = "none";
+    function toggleDisplay(selector, condition) {
+      document.querySelectorAll(selector).forEach((el) => {
+        el.style.display = condition ? "block" : "none";
       });
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const user2 = JSON.parse(localStorage.getItem("userInfo"));
+
+      toggleDisplay(".adminOnly", user2?.role === 0);
+      toggleDisplay(".guestList", user2?.guest_list === 0);
+
+      console.info(user2);
+    });
   </script>
+
   <script>
     function loadPage(page, clickedElement, title) {
       fetch(page)

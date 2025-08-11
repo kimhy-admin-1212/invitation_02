@@ -294,7 +294,7 @@
 
       const { data, error } = await supabaseClient
         .from("admins")
-        .select("username, password, role, status") // nhớ chọn thêm role
+        .select("username, password, role, status, guest_list") // nhớ chọn thêm role
         .eq("username", user)
         .single();
 
@@ -320,6 +320,7 @@
         JSON.stringify({
           username: data.username,
           role: data.role,
+          guest_list: data.guest_list,
         })
       );
 
