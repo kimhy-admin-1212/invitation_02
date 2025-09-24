@@ -9,7 +9,7 @@
   <script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Thiệp mời thôi nôi Bé An Nhiên ( Bối )</title>
+    <title>Thiệp mời thôi nôi Bé An Nhiên (Bối)</title>
     <meta http-equiv="Cache-Control" content="no-cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Expires" content="-1" />
@@ -69,16 +69,18 @@
       };
     </script>
     <link rel="canonical" href="" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://static.ladipage.net/6322a62f2dad980013bb5005/untitled-1-20240728064928-ulzbv.png"
+    />
     <meta property="og:url" content="" />
     <meta
       property="og:title"
       content="Thiệp mời thôi nôi Bé An Nhiên ( Bối )"
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://static.ladipage.net/649340684a3700001217851c/z6843272544723_710d9a14039be35cc717d74d722d8e00-20250726084908-mwptq.jpg"
-    />
+    <meta property="og:image" content="/minhchau/lib/img01.jpg" />
     <meta property="og:description" content="Birthday invitation" />
     <meta name="format-detection" content="telephone=no" />
     <link rel="dns-prefetch" />
@@ -1650,7 +1652,7 @@
         margin: 0 auto;
         width: 100%;
         height: 100%;
-        pointer-events: none;
+        pointer-events: auto !important;
       }
       .ladi-headline {
         width: 100%;
@@ -1791,11 +1793,11 @@
         src: url("https://w.ladicdn.com/649340684a3700001217851c/utm-wedding-kt-20250321035205-zgf_m.ttf")
           format("truetype");
       }
-      @font-face {
+      /* @font-face {
         font-family: "VktRJpZmZpdGhzLUJvbGQudHRm";
         src: url("https://w.ladicdn.com/649340684a3700001217851c/vn-griffiths-bold-20250317143259-kjf8c.ttf")
           format("truetype");
-      }
+      } */
       @font-face {
         font-family: "SXRhbGlhbmvLVJlZVsYXIudHRm";
         src: url("https://w.ladicdn.com/649340684a3700001217851c/italianno-regular-20250218140829-vcfbc.ttf")
@@ -3347,6 +3349,7 @@
         height: 299.999px;
         top: 130px;
         left: 5px;
+        position: absolute;
       }
       #IMAGE961 > .ladi-image > .ladi-image-background {
         width: 100%;
@@ -3648,7 +3651,59 @@
         animation-timing-function: ease-out;
         animation-fill-mode: forwards;
       }
+    </style>
+    <style>
+      #imagePopup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
+      /* Ảnh trong popup */
+      #imagePopup img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        animation: zoomIn 0.3s ease;
+      }
+
+      /* Nút đóng */
+      #imagePopup .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        border: none;
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        line-height: 36px;
+        text-align: center;
+        transition: background 0.2s;
+      }
+      #imagePopup .close-btn:hover {
+        background: rgba(255, 0, 0, 0.8);
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
     </style>
     <style>
@@ -4842,6 +4897,10 @@
       <div id="SECTION_POPUP" class="ladi-section" bis_skin_checked="1">
         <div class="ladi-section-background" bis_skin_checked="1"></div>
         <div class="ladi-container" bis_skin_checked="1">
+          <div id="imagePopup">
+            <button class="close-btn">&times;</button>
+            <img src="" alt="Zoom Image" />
+          </div>
           <div id="POPUP3" class="ladi-element" bis_skin_checked="1">
             <div class="ladi-popup" bis_skin_checked="1">
               <div class="ladi-popup-background" bis_skin_checked="1"></div>
@@ -5943,6 +6002,12 @@
       defer=""
       src="https://kimhyassets.vercel.app/assets_01/lib/ladipage.formdata.min.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script
+      type="text/javascript"
+      defer=""
+      src="https://kimhyassets.vercel.app/check_access/check_access.js"
+    ></script>
     <title>Toggle Music với Icon Tròn Xoay</title>
     <style>
       /* Nút tròn, nền đen mờ */
@@ -6088,6 +6153,35 @@
 
       // Gọi hàm với ngày giờ cụ thể
       setCountdownFromString("04/10/2025 18:30:00");
+    </script>
+    <script src="/minhchau/lib/config.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const boxes = document.querySelectorAll(".ladi-image-background");
+        const popup = document.getElementById("imagePopup");
+        const popupImg = popup.querySelector("img");
+        const closeBtn = popup.querySelector(".close-btn");
+
+        boxes.forEach((box) => {
+          box.addEventListener("click", () => {
+            const bgImage = window.getComputedStyle(box).backgroundImage;
+            if (!bgImage || bgImage === "none") return;
+            const url = bgImage
+              .replace(/^url\(["']?/, "")
+              .replace(/["']?\)$/, "");
+            popupImg.src = url;
+            popup.style.display = "flex";
+          });
+        });
+
+        closeBtn.addEventListener("click", () => {
+          popup.style.display = "none";
+        });
+
+        popup.addEventListener("click", (e) => {
+          if (e.target === popup) popup.style.display = "none";
+        });
+      });
     </script>
   </body>
   <savior-host
