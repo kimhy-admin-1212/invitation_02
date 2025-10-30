@@ -66,7 +66,7 @@
   <meta property="og:url" content="" />
   <meta property="og:title" content="Thiệp mời sinh nhật Quốc Huy" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/quochuy/img01.jpg" />
+  <meta property="og:image" content="https://invitation-02.vercel.app/quochuy/img01.jpg" />
   <meta property="og:description" content="Thiệp mời sinh nhật Quốc Huy" />
   <meta name="format-detection" content="telephone=no" />
   <link rel="icon" type="image/x-icon" href="https://kimhy.vercel.app/assets/img/kimhy_logo.png" />
@@ -4121,6 +4121,34 @@
         form.requestSubmit();
       });
     });
+  </script>
+  <script>
+    function setCountdownFromString(dateStr) {
+      // Ví dụ đầu vào: "25/12/2025 09:00"
+      const [day, month, yearAndTime] = dateStr.split("/");
+      const [year, time] = yearAndTime.split(" ");
+      const [hour, minute] = time.split(":");
+
+      // Khởi tạo đối tượng Date (lưu ý: tháng bắt đầu từ 0)
+      const dateObj = new Date(
+        parseInt(year),
+        parseInt(month) - 1,
+        parseInt(day),
+        parseInt(hour),
+        parseInt(minute)
+      );
+
+      const timestamp = dateObj.getTime();
+
+      const countdownDiv = document.getElementById("COUNTDOWN1");
+      countdownDiv.setAttribute("data-endtime", timestamp);
+      countdownDiv.setAttribute("data-date-end", timestamp);
+
+      console.log("Cập nhật thành công:", timestamp);
+    }
+
+    // Gọi hàm với ngày giờ cụ thể
+    setCountdownFromString("08/11/2025 11:00:00");
   </script>
 </body>
 <savior-host style="
