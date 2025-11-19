@@ -4647,11 +4647,9 @@
             đến buổi lễ tốt nghiệp của Trang. <br />
           </p>
         </div>
-        <a href="tel:0769363118">
-          <div id="BOX191" class="ladi-element ladi-animation">
-            <div class="ladi-box ladi-transition"></div>
-          </div>
-        </a>
+        <div id="BOX191" class="ladi-element ladi-animation">
+          <div class="ladi-box ladi-transition"></div>
+        </div>
 
         <div id="HEADLINE851" class="ladi-element ladi-animation">
           <p class="ladi-headline ladi-transition">Liên hệ với Trang</p>
@@ -4659,11 +4657,9 @@
         <div id="HEADLINE852" class="ladi-element ladi-animation">
           <p class="ladi-headline ladi-transition">Liên hệ với Tâm</p>
         </div>
-        <a href="tel:0932917647">
-          <div id="BOX201" class="ladi-element ladi-animation">
-            <div class="ladi-box ladi-transition"></div>
-          </div>
-        </a>
+        <div id="BOX201" class="ladi-element ladi-animation">
+          <div class="ladi-box ladi-transition"></div>
+        </div>
         <div id="BOX32" class="ladi-element">
           <div class="ladi-box ladi-transition"></div>
         </div>
@@ -5616,6 +5612,15 @@
       document.getElementById("BUTTON4").addEventListener("click", () => {
         form.requestSubmit();
       });
+    });
+  </script>
+  <script>
+    document.getElementById("BOX191").addEventListener("click", function () {
+      window.location.href = "tel:0769363118";
+    });
+
+    document.getElementById("BOX201").addEventListener("click", function () {
+      window.location.href = "tel:0932917647";
     });
   </script>
 </body>
