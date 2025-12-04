@@ -5814,10 +5814,19 @@
     });
   </script>
   <script>
-    const section = document.getElementById("SECTION6");
+    // Lấy cả SECTION6 và SECTION61
+    const sections = [
+      document.getElementById("SECTION6"),
+      document.getElementById("SECTION61")
+    ].filter(Boolean); // loại bỏ phần null nếu SECTION nào đó không tồn tại
 
-    // Chỉ tìm BOX trong SECTION6
-    const boxes = section.querySelectorAll("[id^='BOX'] > .ladi-box");
+    // Gom tất cả BOX trong 2 SECTION
+    let boxes = [];
+    sections.forEach(section => {
+      boxes = boxes.concat(
+        Array.from(section.querySelectorAll("[id^='BOX'] > .ladi-box"))
+      );
+    });
 
     const popup = document.getElementById("imagePopup");
     const popupImg = popup.querySelector("img");
@@ -5827,21 +5836,19 @@
     boxes.forEach((box) => {
       box.addEventListener("click", () => {
         const bgImage = window.getComputedStyle(box).backgroundImage;
-
         if (!bgImage || bgImage === "none") return;
 
-        // Lấy URL ảnh và mở popup
         const url = bgImage.slice(5, -2);
         popupImg.src = url;
         popup.style.display = "flex";
       });
     });
 
-    // Đóng popup
     closeBtn.addEventListener("click", () => {
       popup.style.display = "none";
     });
   </script>
+
 
 </body>
 <savior-host style="
