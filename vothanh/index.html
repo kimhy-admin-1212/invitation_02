@@ -70,16 +70,11 @@
   <meta property="og:image" content="https://invitation-02.vercel.app/vothanh/lib/trang_02.jpg" />
   <meta property="og:description" content="Thiệp mời tốt nghiệp của Võ Thanh" />
   <meta name="format-detection" content="telephone=no" />
-  <link rel="icon" type="image/x-icon"
-    href="https://static.ladipage.net/6322a62f2dad980013bb5005/untitled-1-20240728064928-ulzbv.png" />
-  <link rel="shortcut icon"
-    href="https://static.ladipage.net/6322a62f2dad980013bb5005/untitled-1-20240728064928-ulzbv.png" />
-  <link rel="apple-touch-icon"
-    href="https://static.ladipage.net/6322a62f2dad980013bb5005/untitled-1-20240728064928-ulzbv.png" />
-  <link rel="apple-touch-icon-precomposed"
-    href="https://static.ladipage.net/6322a62f2dad980013bb5005/untitled-1-20240728064928-ulzbv.png" />
-  <meta name="msapplication-TileImage"
-    content="https://static.ladipage.net/6322a62f2dad980013bb5005/untitled-1-20240728064928-ulzbv.png" />
+  <link rel="icon" type="image/x-icon" href="https://kimhy.vercel.app/assets/img/kimhy_logo.png" />
+  <link rel="shortcut icon" href="https://kimhy.vercel.app/assets/img/kimhy_logo.png" />
+  <link rel="apple-touch-icon" href="https://kimhy.vercel.app/assets/img/kimhy_logo.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://kimhy.vercel.app/assets/img/kimhy_logo.png" />
+  <meta name="msapplication-TileImage" content="https://kimhy.vercel.app/assets/img/kimhy_logo.png" />
   <meta name="revisit-after" content="days" />
   <link rel="dns-prefetch" />
   <link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin="" />
@@ -3349,7 +3344,7 @@
     }
 
     #SECTION7 {
-      height: 800.2px;
+      height: 900.2px;
     }
 
     #BOX29 {
@@ -3466,7 +3461,7 @@
 
     #HEADLINE851 {
       top: 835.32px;
-      left: 67.059px;
+      left: 150.059px;
     }
 
     #HEADLINE852 {
@@ -4023,7 +4018,7 @@
 
     #BOX191 {
       top: 750.8px;
-      left: 93.692px;
+      left: 165.692px;
     }
 
     #BOX191>.ladi-box {
@@ -4836,14 +4831,14 @@
             đến buổi lễ tốt nghiệp của Thanh. <br />
           </p>
         </div>
-        <!-- <div id="BOX191" class="ladi-element ladi-animation">
+        <div id="BOX191" class="ladi-element ladi-animation">
           <div class="ladi-box ladi-transition"></div>
         </div>
 
         <div id="HEADLINE851" class="ladi-element ladi-animation">
-          <p class="ladi-headline ladi-transition">Liên hệ với Trang</p>
+          <p class="ladi-headline ladi-transition">Liên hệ với Thanh</p>
         </div>
-        <div id="HEADLINE852" class="ladi-element ladi-animation">
+        <!-- <div id="HEADLINE852" class="ladi-element ladi-animation">
           <p class="ladi-headline ladi-transition">Liên hệ với Tâm</p>
         </div>
         <div id="BOX201" class="ladi-element ladi-animation">
@@ -5811,7 +5806,7 @@
   </script>
   <script>
     document.getElementById("BOX191").addEventListener("click", function () {
-      window.location.href = "tel:0769363118";
+      window.location.href = "tel:0352937900";
     });
 
     document.getElementById("BOX201").addEventListener("click", function () {
@@ -5819,7 +5814,11 @@
     });
   </script>
   <script>
-    const boxes = document.querySelectorAll("[id^='BOX'] > .ladi-box");
+    const section = document.getElementById("SECTION6");
+
+    // Chỉ tìm BOX trong SECTION6
+    const boxes = section.querySelectorAll("[id^='BOX'] > .ladi-box");
+
     const popup = document.getElementById("imagePopup");
     const popupImg = popup.querySelector("img");
     const closeBtn = popup.querySelector(".close-btn");
@@ -5829,7 +5828,6 @@
       box.addEventListener("click", () => {
         const bgImage = window.getComputedStyle(box).backgroundImage;
 
-        // Nếu không có ảnh thì bỏ qua
         if (!bgImage || bgImage === "none") return;
 
         // Lấy URL ảnh và mở popup
@@ -5839,11 +5837,12 @@
       });
     });
 
-    // Đóng popup khi click nút close
+    // Đóng popup
     closeBtn.addEventListener("click", () => {
       popup.style.display = "none";
     });
   </script>
+
 </body>
 <savior-host style="
       all: unset;
