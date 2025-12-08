@@ -4544,7 +4544,7 @@
           <h3 class="ladi-headline ladi-transition">:<br /></h3>
         </div>
         <div id="FORM4" data-config-id="6864a18321ce24001278ca18" class="ladi-element ladi-animation">
-          <form autocomplete="off" method="post" class="ladi-form">
+          <form autocomplete="off" method="post" class="ladi-form" data-form-id="none">
             <div id="BUTTON4" class="ladi-element ladi-animation">
               <div class="ladi-button ladi-transition">
                 <div class="ladi-button-background"></div>
@@ -4580,17 +4580,13 @@
                   <select tabindex="3" name="form_item7" class="ladi-form-control ladi-form-control-select"
                     data-selected="">
                     <option value="">Bạn sẽ đến chứ?</option>
-                    <option value="Mình chắc chắn sẽ đến">
-                      Mình chắc chắn sẽ đến
-                    </option>
-                    <option value="Xin lỗi mình bận rồi!">
-                      Xin lỗi mình bận rồi!
-                    </option>
+                    <option value="1">Mình chắc chắn sẽ đến</option>
+                    <option value="0">Xin lỗi mình bận rồi!</option>
                   </select>
                 </div>
               </div>
             </div>
-            <button type="submit" class="ladi-hidden"></button>
+            <!-- <button type="submit" class="ladi-hidden"></button> -->
           </form>
         </div>
         <!-- <div
@@ -5415,6 +5411,48 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.6/dist/umd/supabase.min.js"></script>
   <script type="text/javascript" defer="" src="https://kimhyassets.vercel.app/check_access/check_access.js"></script>
+
+  <script src="/thuhien/lib/config.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const supabase = window.supabase.createClient(
+        CONFIG.SUPABASE_URL,
+        CONFIG.SUPABASE_KEY
+      );
+
+      const oldForm = document.querySelector(".ladi-form");
+      const form = oldForm.cloneNode(true);
+      oldForm.parentNode.replaceChild(form, oldForm);
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const name = e.target.elements["name"].value.trim();
+        const message = e.target.elements["message"].value.trim();
+        const confirmation = e.target.elements["form_item7"].value;
+
+        if (!name || !message || confirmation === "") {
+          alert("Vui lòng nhập đầy đủ thông tin.");
+          return;
+        }
+
+        const { error } = await supabase
+          .from("rsvp_messages_thuhien")
+          .insert([{ name, message, confirmation }]);
+
+        if (error) {
+          console.error(error);
+          alert("Lỗi khi gửi dữ liệu.");
+        } else {
+          form.reset();
+          alert("Cám ơn bạn đã phản hổi sự kiện Tốt nghiệp của Thu Hiền!");
+        }
+      });
+
+      document.getElementById("BUTTON4").addEventListener("click", () => {
+        form.requestSubmit();
+      });
+    });
+  </script>
 </body>
 <savior-host style="
       all: unset;
