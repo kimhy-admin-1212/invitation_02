@@ -1824,12 +1824,13 @@
     #BOX43 {
       width: 420px;
       height: 285px;
-      top: 387px;
+      top: -50px;
       left: 0px;
     }
 
     #BOX43>.ladi-box,
     #BOX1>.ladi-box,
+    #BOX1111>.ladi-box,
     #BOX2>.ladi-box,
     #BOX3>.ladi-box,
     #BOX4>.ladi-box,
@@ -1867,6 +1868,7 @@
     #HEADLINE5>.ladi-headline:hover,
     #HEADLINE6>.ladi-headline:hover,
     #BOX1>.ladi-box:hover,
+    #BOX1111>.ladi-box:hover,
     #HEADLINE7>.ladi-headline:hover,
     #HEADLINE8>.ladi-headline:hover,
     #HEADLINE888>.ladi-headline:hover,
@@ -2102,6 +2104,13 @@
       left: 0px;
     }
 
+    #BOX1111 {
+      width: 100px;
+      height: 100px;
+      top: 276px;
+      left: 325px;
+    }
+
     #BOX1>.ladi-box {
       background-image: url("/trucquynh/lib/img06.jpg");
       background-size: cover;
@@ -2112,7 +2121,18 @@
       box-shadow: rgb(0, 0, 0) 0px 10px 20px -20px;
     }
 
+    #BOX1111>.ladi-box {
+      background-image: url("/trucquynh/lib/预览图_千图网_编号28794851.png");
+      background-size: cover;
+      background-origin: content-box;
+      background-position: 50% 0%;
+      background-repeat: repeat;
+      background-attachment: scroll;
+      /* box-shadow: rgb(0, 0, 0) 0px 10px 20px -20px; */
+    }
+
     #BOX1.ladi-animation>.ladi-box,
+    #BOX1111.ladi-animation>.ladi-box,
     #BOX4.ladi-animation>.ladi-box,
     #GROUP37.ladi-animation>.ladi-group,
     #BOX20.ladi-animation>.ladi-box {
@@ -4243,9 +4263,9 @@
             <div class="ladi-image-background"></div>
           </div>
         </div>
-        <!-- <div id="BOX43" class="ladi-element">
+        <div id="BOX43" class="ladi-element">
           <div class="ladi-box ladi-transition"></div>
-        </div> -->
+        </div>
         <div id="HEADLINE4" class="ladi-element ladi-animation">
           <p class="ladi-headline ladi-transition">Thiệp mời tốt nghiệp</p>
         </div>
@@ -4259,6 +4279,10 @@
           <div class="ladi-image">
             <div class="ladi-image-background"></div>
           </div>
+        </div>
+
+        <div id="BOX1111" class="ladi-element ladi-animation">
+          <div class="ladi-box ladi-transition"></div>
         </div>
       </div>
     </div>
@@ -5367,6 +5391,7 @@
         "HEADLINE5": { "a": "headline", "D": "fadeInUp", "A": "1s" },
         "HEADLINE6": { "a": "headline", "D": "fadeInUp", "A": "1s" },
         "BOX1": { "a": "box", "D": "fadeInLeft", "A": "1s" },
+        "BOX1111": { "a": "box", "D": "fadeInLeft", "A": "1s" },
         "HEADLINE7": { "a": "headline", "D": "fadeInUp", "A": "0s" },
         "HEADLINE8": { "a": "headline", "D": "fadeInUp", "A": "0s" },
         "HEADLINE888": { "a": "headline", "D": "fadeInUp", "A": "0s" },
@@ -5555,7 +5580,7 @@
     setCountdownFromString("29/03/2026 10:30:00");
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.6/dist/umd/supabase.min.js"></script>
-  <script type="text/javascript" defer="" src="https://kimhyassets.vercel.app/check_access/check_access.js"></script>
+  <!-- <script type="text/javascript" defer="" src="https://kimhyassets.vercel.app/check_access/check_access.js"></script> -->
 
   <script src="/trucquynh/lib/config.js"></script>
   <script>
