@@ -2500,7 +2500,7 @@
     }
 
     #w-rvtmult6 {
-      top: 108.5px;
+      top: 100.5px;
       left: 44.5px;
       perspective: 1000px;
       width: 331px;
@@ -2602,7 +2602,7 @@
     }
 
     #w-jgudc4nt {
-      top: 215.5px;
+      top: 202.5px;
       left: 30px;
       perspective: 1000px;
       width: 360px;
@@ -6113,7 +6113,7 @@
     }
 
     #w-rvtmult6 {
-      top: 108.5px;
+      top: 100.5px;
       left: 44.5px;
       perspective: 1000px;
       width: 331px;
@@ -6215,7 +6215,7 @@
     }
 
     #w-jgudc4nt {
-      top: 215.5px;
+      top: 202.5px;
       left: 30px;
       perspective: 1000px;
       width: 360px;
@@ -9178,7 +9178,7 @@
               </div>
             </div>
           </div>
-          <div id="w-rvtmult6" class="com-text-block p-absolute is-animation" bis_skin_checked="1" style="top: 165px">
+          <div id="w-rvtmult6" class="com-text-block p-absolute is-animation" bis_skin_checked="1" style="top: 155px">
             <div class="full-width full-height" bis_skin_checked="1">
               <div class="text-block" bis_skin_checked="1">
                 <h3 class="text-block-css full-width" style="
@@ -9208,8 +9208,26 @@
             <div class="full-width full-height">
               <div class="text-block">
                 <h3 class="text-block-css full-width">
-                  Trân Trọng Kính Mời Ông, Bà, Cô, Chú Đến Tham Dự Buổi Tiệc
-                  Cùng Con.
+                  Trân Trọng Kính Mời
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div id="w-jgudc4nt" class="com-text-block p-absolute is-animation" style="top: 225px">
+            <div class="full-width full-height">
+              <div class="text-block">
+                <h3 id="tenInput" class="text-block-css full-width"
+                  style="color: red; font-weight: bold; font-size: 17px;">
+                  Bạn và Gia Đình
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div id="w-jgudc4nt" class="com-text-block p-absolute is-animation" style="top: 250px">
+            <div class="full-width full-height">
+              <div class="text-block">
+                <h3 class="text-block-css full-width">
+                  Đến Tham Dự Buổi Tiệc Cùng Con.
                 </h3>
               </div>
             </div>
@@ -12221,6 +12239,30 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.6/dist/umd/supabase.min.js"></script>
   <script type="text/javascript" defer="" src="https://kimhyassets.vercel.app/check_access/check_access.js"></script>
+  <script>
+    function base64UrlDecode(str) {
+      let b64 = str.replace(/-/g, "+").replace(/_/g, "/");
+      // thêm padding nếu thiếu
+      while (b64.length % 4) b64 += "=";
+      const binary = atob(b64);
+      // chuyển binary -> UTF-8 string
+      const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const khachmoi = params.get("khachmoi");
+    if (khachmoi) {
+      try {
+        const decoded = base64UrlDecode(khachmoi); // "Tên|timestamp"
+        const name = decoded.split("|")[0];
+        document.getElementById("tenInput").textContent = name;
+      } catch (e) {
+        console.error("Lỗi decode Base64:", e);
+        document.getElementById("tenInput").textContent = "Quý Khách Mời";
+      }
+    }
+  </script>
 </body>
 <savior-host style="
       all: unset;
